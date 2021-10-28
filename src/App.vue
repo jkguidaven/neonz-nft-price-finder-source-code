@@ -1,25 +1,6 @@
 <template>
-  <NeonzList
-    :page="page"
-  />
+  <router-view/>
 </template>
-
-<script>
-import NeonzList from './components/NeonzList.vue'
-
-export default {
-  name: 'App',
-  components: {
-    NeonzList
-  },
-
-  computed: {
-    page() {
-      return this.$route.query.page ?? 0;
-    }
-  }
-}
-</script>
 
 <style>
 #app {
@@ -27,11 +8,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2529ff;
-  margin-top: 60px;
+  color: #0725cc;
 }
 
 body {
-  background-color: black;
+  background-color: #000;
 }
 </style>

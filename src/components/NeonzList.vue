@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <div class="neonz" v-for="(neonz,i) in items" :key="`neonz-${i}`" @click="redirect(`https://objkt.com/asset/neonz/${neonz.id}`)">
+    <div
+        class="neonz"
+        v-for="(neonz,i) in items"
+        :key="`neonz-${i}`"
+        @click="redirect(`https://objkt.com/asset/neonz/${neonz.id}`)"
+    >
         <img :src="neonz.image" />
 
         <div class="info-box">
@@ -37,7 +42,7 @@ export default {
 
   computed: {
     items() {
-        return this.neonzs.slice(this.page * this.size, this.size);
+        return this.neonzs.slice(this.page * this.size, this.page * this.size + this.size);
     }
   },
 
