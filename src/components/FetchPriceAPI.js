@@ -1,4 +1,4 @@
-export default (start, end) => {
+export default () => {
   return fetch("https://api.objkt.com/v1/graphql", {
     method: "POST",
     headers: {
@@ -242,14 +242,13 @@ export default (start, end) => {
     .then(({ data: { token } }) => {
       const finalData = token
         .map((neonz) => {
-          console.log(neonz);
           return {
             id: Number(neonz.id),
             price: (neonz.asks.length ? neonz.asks[0].price : 0) ?? neonz.highest_bid,
           };
         })
         .filter((neonz) => {
-          return neonz.id >= start && neonz.id <= end && neonz.price;
+          return neonz.price;
         })
         .sort((a, b) => a.price - b.price);
       return finalData;
