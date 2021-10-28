@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <template v-if="items.length">
+    <template v-if="items.length && !loading">
       <div
         class="neonz"
         v-for="(neonz, i) in items"
@@ -16,7 +16,7 @@
         </div>
       </div>
     </template>
-    <template v-else> No Listing found. </template>
+    <template v-else> {{ loading ? "Please wait. loading neonz listing.." : "No Listing found" }}</template>
   </div>
 </template>
 
@@ -52,9 +52,11 @@ export default {
 
   setup() {
     const data = ref([]);
+    const loading = ref(true);
     return {
       neonzs,
       data,
+      loading,
     };
   },
 
@@ -68,6 +70,7 @@ export default {
       ...getMeta(neonz.id),
       price: neonz.price,
     }));
+    this.loading = false;
   },
 
   computed: {

@@ -9,7 +9,13 @@
       </div>
     </div>
 
-    <NeonzList :page="page" :min="min" :max="max" />
+    <NeonzList class="list" :page="page" :min="min" :max="max" />
+
+    <footer>
+      If you appreciate my work. I will accept some donation ^_^..
+
+      <h3>tz1aqsCeWnvUeEQxk2TpVsCqLEvchhT2KfYC</h3>
+    </footer>
   </div>
 </template>
 
@@ -77,5 +83,19 @@ button {
   color: #000;
   font-weight: 700;
   cursor: pointer;
+}
+
+.list {
+  min-height: 500px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+}
+
+footer h3 {
+  display: block;
+  color: rgb(238, 195, 52);
 }
 </style>
