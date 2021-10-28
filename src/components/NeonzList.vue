@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <template v-if="items.length && !loading">
+  <template v-if="items.length && !loading">
+    <div class="grid">
       <div
         class="neonz"
         v-for="(neonz, i) in items"
@@ -15,9 +15,22 @@
           <h4>Price: {{ neonz.price / 1000000 }} tez</h4>
         </div>
       </div>
-    </template>
-    <template v-else> {{ loading ? "Please wait. loading neonz listing.." : "No Listing found" }}</template>
-  </div>
+    </div>
+    <footer>
+      If you appreciate my work. I will accept some donation ^_^..
+
+      <h3>tz1aqsCeWnvUeEQxk2TpVsCqLEvchhT2KfYC</h3>
+    </footer>
+  </template>
+  <template v-else>
+    <div class="container">
+      {{
+        loading
+          ? "Please wait while we are loading all neonz listing.."
+          : "Unfortunately, No Listing found. try to adjust min/max to find something."
+      }}
+    </div>
+  </template>
 </template>
 
 <script>
@@ -95,6 +108,14 @@ export default {
 
 <style scoped>
 .container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  min-height: calc(100% - 101px);
+}
+
+.grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
@@ -112,5 +133,15 @@ export default {
 img {
   width: 100%;
   height: auto;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+}
+
+footer h3 {
+  display: block;
+  color: rgb(238, 195, 52);
 }
 </style>
