@@ -1,15 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <NeonzList
+    :page="page"
+  />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NeonzList from './components/NeonzList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NeonzList
+  },
+
+  computed: {
+    page() {
+      return this.$route.query.page ?? 0;
+    }
   }
 }
 </script>
@@ -20,7 +27,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #2529ff;
   margin-top: 60px;
+}
+
+body {
+  background-color: black;
 }
 </style>
