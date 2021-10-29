@@ -49,7 +49,7 @@ export default {
 
     size: {
       type: Number,
-      default: 100,
+      default: 10000,
     },
 
     min: {
