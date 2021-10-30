@@ -1,20 +1,7 @@
 <template>
   <template v-if="items.length && !loading">
     <div class="grid">
-      <div
-        class="neonz"
-        v-for="(neonz, i) in items"
-        :key="`neonz-${i}`"
-        @click="redirect(`https://objkt.com/asset/neonz/${neonz.id}`)"
-      >
-        <img :src="neonz.image" />
-
-        <div class="info-box">
-          <h1>NEONZ# {{ neonz.id }}</h1>
-          <h4>Rarity Rank: {{ neonz.rank }}</h4>
-          <h4>Price: {{ neonz.price / 1000000 }} tez</h4>
-        </div>
-      </div>
+      <Neonz v-for="(neonz, i) in items" :key="`neonz-${i}`" :value="neonz" />
     </div>
     <footer>
       If you appreciate my work. I will accept some donation ^_^..
@@ -34,12 +21,17 @@
 </template>
 
 <script>
-import neonzs from "../assets/neonz-metadata.json";
 import { ref } from "vue";
-import fetchPriceAPI from "./FetchPriceAPI";
+import neonzs from "../assets/neonz-metadata.json";
+import fetchPriceAPI from "../services/FetchPriceAPI";
+import Neonz from "./Neonz.vue";
 
 export default {
   name: "NeonList",
+
+  components: {
+    Neonz,
+  },
 
   props: {
     page: {
@@ -49,7 +41,7 @@ export default {
 
     size: {
       type: Number,
-      default: 10000,
+      default: 30,
     },
 
     min: {
@@ -89,9 +81,8 @@ export default {
   computed: {
     items() {
       if (this.data) {
-        return this.data
-          .slice(this.page * this.size, this.page * this.size + this.size)
-          .filter(({ rank }) => rank >= Number(this.min) && rank <= Number(this.max));
+        const matches = this.data.filter(({ rank }) => rank >= Number(this.min) && rank <= Number(this.max));
+        return matches.slice(this.page * this.size, this.page * this.size + this.size);
       }
 
       return [];
@@ -118,21 +109,6 @@ export default {
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-
-.neonz {
-  border: 1px solid #2529ff;
-  cursor: pointer;
-}
-
-.neonz:hover {
-  background: #2529ff;
-  color: white;
-}
-
-img {
-  width: 100%;
-  height: auto;
 }
 
 footer {
