@@ -46,7 +46,7 @@ export default () => {
         .map((neonz) => {
           return {
             id: Number(neonz.id),
-            price: (neonz.asks.length ? neonz.asks[0].price : 0) ?? neonz.highest_bid,
+            price: neonz.asks.length ? neonz.asks[0].price : 0,
           };
         })
         .filter((neonz) => {
