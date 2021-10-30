@@ -91,6 +91,7 @@ export default {
           max: this.max,
         },
       });
+      this.size = PAGE_SIZE;
     },
 
     gotoTop() {
