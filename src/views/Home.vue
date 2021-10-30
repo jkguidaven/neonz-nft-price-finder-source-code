@@ -7,9 +7,11 @@
         <h2>(MAX):</h2>
         <input v-model="max" :min="MIN_RANK" :max="MAX_RANK" type="number" />
       </div>
+
+      <button @click="search">Search</button>
     </div>
 
-    <NeonzList class="list" :page="page" :min="min" :max="max" />
+    <NeonzList class="list" :page="page" :min="currentMin" :max="currentMax" />
   </div>
 </template>
 
@@ -39,9 +41,39 @@ export default {
     };
   },
 
+  mounted() {
+    if (this.$route.query.min) {
+      this.min = this.$route.query.min;
+    }
+
+    if (this.$route.query.max) {
+      this.max = this.$route.query.max;
+    }
+  },
+
   computed: {
     page() {
       return Number(this.$route.query.page ?? 0);
+    },
+
+    currentMin() {
+      return Number(this.$route.query.min ?? 1);
+    },
+
+    currentMax() {
+      return Number(this.$route.query.max ?? 10000);
+    },
+  },
+
+  methods: {
+    search() {
+      this.$router.push({
+        query: {
+          ...this.$route.query,
+          min: this.min,
+          max: this.max,
+        },
+      });
     },
   },
 };

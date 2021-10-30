@@ -1,7 +1,7 @@
 <template>
   <template v-if="items.length && !loading">
     <div class="grid">
-      <Neonz v-for="(neonz, i) in items" :key="`neonz-${i}`" :value="neonz" />
+      <Neonz v-for="neonz in items" :key="`neonz-${neonz.id}`" :value="neonz" />
     </div>
     <footer>
       If you appreciate my work. I will accept some donation ^_^..
@@ -28,6 +28,7 @@ import Neonz from "./Neonz.vue";
 
 export default {
   name: "NeonList",
+  inheritAttrs: false,
 
   components: {
     Neonz,

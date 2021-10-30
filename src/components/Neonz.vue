@@ -17,6 +17,7 @@ import ImageRepository from "../services/NeonzImageRepository";
 
 export default {
   name: "Neonz",
+  inheritAttrs: false,
 
   props: {
     value: {
