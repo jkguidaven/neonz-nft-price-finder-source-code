@@ -12,6 +12,8 @@
     </div>
 
     <NeonzList class="list" :page="page" :min="currentMin" :max="currentMax" />
+
+    <button v-if="showGotoTopBtn" @click="gotoTop" class="goto-top-button" title="Go to top">Top</button>
   </div>
 </template>
 
@@ -32,12 +34,14 @@ export default {
   setup() {
     const min = ref(MIN_RANK);
     const max = ref(MAX_RANK);
+    const showGotoTopBtn = ref(false);
 
     return {
       min,
       max,
       MIN_RANK,
       MAX_RANK,
+      showGotoTopBtn,
     };
   },
 
@@ -49,6 +53,14 @@ export default {
     if (this.$route.query.max) {
       this.max = this.$route.query.max;
     }
+
+    window.onscroll = () => {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        this.showGotoTopBtn = true;
+      } else {
+        this.showGotoTopBtn = false;
+      }
+    };
   },
 
   computed: {
@@ -74,6 +86,11 @@ export default {
           max: this.max,
         },
       });
+    },
+
+    gotoTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     },
   },
 };
@@ -105,9 +122,31 @@ button {
 
 button {
   border: 2px solid #0725cc;
-  background: #0725cc;
-  color: #000;
+  border: 2px solid #0c30fc;
+  background-color: #0725cc;
+  color: white;
   font-weight: 700;
   cursor: pointer;
+}
+
+.goto-top-button {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #0c30fc;
+  background-color: #0725cc;
+  color: white;
+  font-size: 18px;
+}
+
+.goto-top-button :hover {
+  background-color: #555;
 }
 </style>
