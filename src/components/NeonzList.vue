@@ -3,6 +3,9 @@
     <div class="grid">
       <Neonz v-for="neonz in items" :key="`neonz-${neonz.id}`" :value="neonz" />
     </div>
+
+    <button v-if="size < matches.length" @click="$emit('more')">View More Neonz</button>
+
     <footer>
       If you appreciate my work. I will accept some donation ^_^..
 
@@ -81,9 +84,16 @@ export default {
 
   computed: {
     items() {
+      if (this.matches.length) {
+        return this.matches.slice(this.page * this.size, this.page * this.size + this.size);
+      }
+
+      return [];
+    },
+
+    matches() {
       if (this.data) {
-        const matches = this.data.filter(({ rank }) => rank >= Number(this.min) && rank <= Number(this.max));
-        return matches.slice(this.page * this.size, this.page * this.size + this.size);
+        return this.data.filter(({ rank }) => rank >= Number(this.min) && rank <= Number(this.max));
       }
 
       return [];
@@ -141,5 +151,18 @@ footer {
 footer h3 {
   display: block;
   color: rgb(238, 195, 52);
+}
+
+button {
+  border: 2px solid #0c30fc;
+  background-color: #0725cc;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 20px;
+  text-transform: uppercase;
+  padding: 20px;
+  border-radius: 10px;
 }
 </style>

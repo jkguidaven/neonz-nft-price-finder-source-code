@@ -11,7 +11,7 @@
       <button @click="search">Search</button>
     </div>
 
-    <NeonzList class="list" :page="page" :min="currentMin" :max="currentMax" />
+    <NeonzList class="list" :size="size" :page="page" :min="currentMin" :max="currentMax" @more="size += PAGE_SIZE" />
 
     <button v-if="showGotoTopBtn" @click="gotoTop" class="goto-top-button" title="Go to top">Top</button>
   </div>
@@ -25,6 +25,8 @@ import { ref } from "vue";
 const MIN_RANK = 1;
 const MAX_RANK = 10000;
 
+const PAGE_SIZE = 30;
+
 export default {
   name: "Home",
   components: {
@@ -34,14 +36,17 @@ export default {
   setup() {
     const min = ref(MIN_RANK);
     const max = ref(MAX_RANK);
+    const size = ref(PAGE_SIZE);
     const showGotoTopBtn = ref(false);
 
     return {
       min,
       max,
+      size,
+      showGotoTopBtn,
       MIN_RANK,
       MAX_RANK,
-      showGotoTopBtn,
+      PAGE_SIZE,
     };
   },
 
@@ -121,7 +126,6 @@ button {
 }
 
 button {
-  border: 2px solid #0725cc;
   border: 2px solid #0c30fc;
   background-color: #0725cc;
   color: white;
