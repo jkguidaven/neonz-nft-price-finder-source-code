@@ -51,8 +51,7 @@ export default () => {
         })
         .filter((neonz) => {
           return neonz.price;
-        })
-        .sort((a, b) => a.price - b.price);
+        });
       return finalData;
     });
 };

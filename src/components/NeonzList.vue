@@ -27,6 +27,7 @@
 import { ref } from "vue";
 import neonzs from "../assets/neonz-metadata.json";
 import fetchPriceAPI from "../services/FetchPriceAPI";
+import ratePrice from "../services/PriceAnalyzer";
 import Neonz from "./Neonz.vue";
 
 export default {
@@ -79,6 +80,16 @@ export default {
       ...getMeta(neonz.id),
       price: neonz.price,
     }));
+
+    this.data.sort((a, b) => {
+      if (a.price === b.price) {
+        return a.rank - b.rank;
+      }
+
+      return a.price - b.price;
+    });
+
+    ratePrice(this.data);
     this.loading = false;
   },
 
